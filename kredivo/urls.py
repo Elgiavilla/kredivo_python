@@ -18,8 +18,11 @@ from django.urls import path
 
 from django.conf import settings
 from django.conf.urls import url, include
+from kredivo.contact.factories import create_contacts_view, create_contact_view
+from .views import ViewWrapper
 
 urlpatterns = [
     url('admin/', admin.site.urls),
-    url('api/', include('kredivo.contact.urls'))
+    url('api/contacts', ViewWrapper.as_view(view_creator_func=create_contacts_view), name="contacts"),
+    url(r'^api/contact/(?P<id>[0-9]+)$', ViewWrapper.as_view(view_creator_func=create_contact_view), name="contact"),
 ]

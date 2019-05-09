@@ -1,7 +1,15 @@
-from rest_framework import serializers
-from .models import Contact
+class MultipleContactSeralizer:
+    @staticmethod
+    def seralize(contacts):
+        return [ContactSerializers.serialize(contact) for contact in contacts]
 
-class ContactSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Contact
-        fields = '__all__'
+class ContactSerializers(object):
+    @staticmethod
+    def serialize(contact):
+        return {
+            'id': str(contact.id),
+            'phone_number':contact.phone_number,
+            'name':contact.name,
+            'email':contact.email,
+            'photo':contact.photo
+        }
